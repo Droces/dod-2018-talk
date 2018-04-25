@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  drupal:
+    image: drupal
+    # build: .
+    ports:
+      - "81:80"
+    depends_on:
+      - db
+    # volumes:
+    #   - ./:/var/www/html
+
+  db:
+    image: mariadb:10.3
+    environment:
+      MYSQL_ROOT_PASSWORD: pass123
+      MYSQL_DATABASE: drupal
+    volumes:
+      - db_data:/var/lib/mysql
+      # - ./db:/docker-entrypoint-initdb.d
+
+volumes:
+  db_data:
